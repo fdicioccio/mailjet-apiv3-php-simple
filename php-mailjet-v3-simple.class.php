@@ -64,7 +64,7 @@ class Mailjet
 
     public function requestUrlBuilder($resource, $params = array(), $request, $id)
     {
-                if ($resource == "sendEmail")
+        if ($resource == "sendEmail")
             $this->call_url = "https://api.mailjet.com/v3/send/message";
         else
             $this->call_url = $this->apiUrl . '/' . $resource;
