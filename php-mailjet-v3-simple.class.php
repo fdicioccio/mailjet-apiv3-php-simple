@@ -64,19 +64,19 @@ class Mailjet
 
     public function requestUrlBuilder($resource, $params = array(), $request, $id)
     {
-        foreach ($params as $key => $value) {
-            if ($request == "GET")
-                $query_string[$key] = $key . '=' . urlencode($value);
-        }
-
-        if ($resource == "sendEmail")
+                if ($resource == "sendEmail")
             $this->call_url = "https://api.mailjet.com/v3/send/message";
         else
             $this->call_url = $this->apiUrl . '/' . $resource;
 
-        if ($request == "VIEW" || $request == "DELETE" || $request == "PUT")
-            if ($id != '')
+        if (($request == "VIEW" || $request == "DELETE" || $request == "PUT" || $request == "GET") && $id != '') {
                 $this->call_url .= '/' . $id;
+        } else if ($request == "GET" && !empty($params)) {
+            foreach ($params as $key => $value) {
+                $query_string[$key] = $key.'='.urlencode($value);
+            }
+            $this->call_url .= '/?' . join('&', $query_string);
+        } 
 
         return $this->call_url;
     }
