@@ -11,6 +11,8 @@
 
 class Mailjet
 {
+    var $version = 'v3';
+
     # Connect with https protocol
     var $secure = true;
 
